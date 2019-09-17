@@ -1,12 +1,12 @@
 class Api::V1::ResponsesController < ApplicationController
 
   def index
-    @responses = User.all
+    @responses = Response.all
     render json: @responses
   end
 
   def create
-    @response = User.new(response_params)
+    @response = Response.new(response_params)
     if @response.save
       render json: @response
     else
@@ -15,12 +15,12 @@ class Api::V1::ResponsesController < ApplicationController
   end
 
   def show
-    @response = User.find(params[:id])
+    @response = Response.find(params[:id])
     render json: @response
   end
 
   def destroy
-    @response = User.find(params[:id])
+    @response = Response.find(params[:id])
     @response.destroy
   end
 

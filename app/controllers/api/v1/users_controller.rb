@@ -1,27 +1,24 @@
 class Api::V1::UsersController < ApplicationController
 
   def index
-    @users = User.all
-    render json: @users
-  end
-
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      render json: @user
-    else
-      render json: {error: "Do something right for once!"}
+    resp = Faraday.get('https://api.twitter.com/1.1/statuses/user_timeline.json?') do |req|
+      req.params['screen_name'] = 'exquisitecop'
+      req.headers['Authorization'] = "Bearer #{ENV['TWITTER_BEARER_TOKEN']}"
+      req.headers['Content-Type'] = 'application/json'
     end
+
+    resp_hash = JSON.parse(resp.body)
+
+    @user = User.new_from_hash(resp_hash[0]['user'])
+    @user.build_tweets_from_hash(resp_hash)
+    @user.save
+
+    render json: @user
   end
 
   def show
     @user = User.find(params[:id])
     render json: @user
-  end
-
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
   end
 
   private
