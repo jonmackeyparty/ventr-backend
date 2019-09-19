@@ -1,11 +1,14 @@
+require 'pry'
+
 class Api::V1::UsersController < ApplicationController
 
-  def index
+  def show
     resp = Faraday.get('https://api.twitter.com/1.1/statuses/user_timeline.json?') do |req|
-      req.params['screen_name'] = 'exquisitecop'
+      req.params['screen_name'] = params[:username]
       req.params['count'] = 15
       req.params['exclude_replies'] = true
       req.params['include_rts'] = false
+      req.params['tweet_mode'] = 'extended'
       req.headers['Authorization'] = "Bearer #{ENV['TWITTER_BEARER_TOKEN']}"
       req.headers['Content-Type'] = 'application/json'
     end
@@ -19,15 +22,10 @@ class Api::V1::UsersController < ApplicationController
     render json: @user
   end
 
-  def show
-    @user = User.find(params[:id])
-    render json: @user
-  end
-
   private
 
   def user_params
-    params.require(:user).permit(:username, :avi_url, :bio, :location)
+    params.require(:user).permit(:username)
   end
 
 end

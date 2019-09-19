@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   def build_tweets_from_hash(hash)
     hash.each do |tweet|
-      self.tweets.build(content: tweet['text'], date: tweet['created_at'])
+      self.tweets.build(content: tweet['full_text'], date: tweet['created_at'])
     end
   end
 
