@@ -15,6 +15,8 @@ class Api::V1::UsersController < ApplicationController
 
     resp_hash = JSON.parse(resp.body)
 
+    binding.pry
+
     @user = User.new_from_hash(resp_hash[0]['user'])
     @user.build_tweets_from_hash(resp_hash)
     @user.save
