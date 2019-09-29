@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_20_175533) do
+ActiveRecord::Schema.define(version: 2019_09_29_162721) do
 
   create_table "apologies", force: :cascade do |t|
     t.text "content"
+    t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -23,13 +24,13 @@ ActiveRecord::Schema.define(version: 2019_09_20_175533) do
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "date"
+    t.string "date"
   end
 
   create_table "selected_tweets", force: :cascade do |t|
     t.integer "user_id"
     t.string "content"
-    t.datetime "date"
+    t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -37,7 +38,7 @@ ActiveRecord::Schema.define(version: 2019_09_20_175533) do
   create_table "tweets", force: :cascade do |t|
     t.integer "user_id"
     t.string "content"
-    t.datetime "date"
+    t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
