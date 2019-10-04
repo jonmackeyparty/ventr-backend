@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2019_09_29_162721) do
 
   create_table "apologies", force: :cascade do |t|
+    t.integer "selected_tweet_id"
     t.text "content"
     t.string "date"
     t.datetime "created_at", null: false

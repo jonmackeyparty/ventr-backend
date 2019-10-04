@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :tweets
   has_one :selected_tweet
   has_many :responses, through: :selected_tweet
+  has_one :apology, through: :selected_tweet
 
   def self.new_from_hash(hash)
     @user = User.new(username: hash['name'], location: hash['location'], bio: hash['description'], avi_url: hash['profile_image_url'])
