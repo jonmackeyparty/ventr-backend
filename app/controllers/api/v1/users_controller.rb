@@ -15,13 +15,18 @@ class Api::V1::UsersController < ApplicationController
 
     resp_hash = JSON.parse(resp.body)
 
-    # binding.pry
+    if resp.body == "[]"
+      render json: { errors: "Username must be exact. Sorry!" }, status: 422
+    elsif resp_hash.include?("errors")
+      render json: { errors: "Username must be exact. Sorry!" }, status: 422
+    else
+      @user = User.new_from_hash(resp_hash[0]['user'])
+      @user.build_tweets_from_hash(resp_hash)
+      # binding.pry
+      @user.save
 
-    @user = User.new_from_hash(resp_hash[0]['user'])
-    @user.build_tweets_from_hash(resp_hash)
-    @user.save
-
-    render json: @user
+      render json: @user
+    end
   end
 
 end
