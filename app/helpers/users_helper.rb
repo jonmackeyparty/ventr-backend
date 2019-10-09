@@ -17,15 +17,21 @@ module UsersHelper
 
     resp_hash = JSON.parse(resp.body)
 
-    if resp.success? && resp.body != "[]"
-      @user = User.new_from_hash(resp_hash[0]['user'])
-      @user.build_tweets_from_hash(resp_hash)
-      @user.save
-      render json: @user
-    elsif resp.success? && resp.body == "[]"
-      render json: { errors: "This user has no tweets to complain about." }
+    case resp.status
+    when 200
+      if resp.body != "[]"
+        @user = User.new_from_hash(resp_hash[0]['user'])
+        @user.build_tweets_from_hash(resp_hash)
+        @user.save
+        render json: @user
+      else
+        render json: { errors: "This user has no tweets to complain about." }
+      end
+    when 404
+      render json: { errors: resp_hash['errors'][0]['message'] }
+    when 401
+      render json: { errors: resp_hash['error']}
     else
-      # binding.pry
       render json: { errors: resp_hash['errors'][0]['message'] }
     end
 
