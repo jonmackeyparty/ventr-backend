@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_one :apology, through: :selected_tweet
 
   def self.new_from_hash(hash)
-    @user = User.new(username: hash['name'], location: hash['location'], bio: hash['description'], avi_url: hash['profile_image_url'])
+    @user = User.new(username: hash['name'], screen_name: hash['screen_name'], location: hash['location'], bio: hash['description'], avi_url: hash['profile_image_url'])
   end
 
   def build_tweets_from_hash(hash)
