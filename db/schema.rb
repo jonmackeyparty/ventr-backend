@@ -10,48 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_29_162721) do
+ActiveRecord::Schema.define(version: 0) do
 
-  create_table "apologies", force: :cascade do |t|
-    t.integer "selected_tweet_id"
-    t.text "content"
-    t.string "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "responses", force: :cascade do |t|
-    t.integer "selected_tweet_id"
-    t.string "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "date"
-  end
-
-  create_table "selected_tweets", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "content"
-    t.string "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tweets", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "content"
-    t.string "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "screen_name"
-    t.string "avi_url"
-    t.string "bio"
-    t.string "location"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
 end
